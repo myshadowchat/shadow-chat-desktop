@@ -24,3 +24,19 @@ jobs:
           tag_name: windows
           name: Shadow Chat for Windows
           files: dist/*.exe
+
+  linux:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - run: npm install
+      - run: npx electron-builder --linux --publish never
+      - name: Publish AppImage
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: linux
+          name: Shadow Chat for Linux
+          files: dist/*.AppImage

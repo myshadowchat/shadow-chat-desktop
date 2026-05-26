@@ -22,6 +22,12 @@
       "icon": "build/icon.png",
       "artifactName": "Shadow-Chat-Setup.${ext}"
     },
+    "linux": {
+      "target": "AppImage",
+      "icon": "build/icon.png",
+      "artifactName": "Shadow-Chat.${ext}",
+      "category": "Network"
+    },
     "nsis": {
       "oneClick": true,
       "perMachine": false,
