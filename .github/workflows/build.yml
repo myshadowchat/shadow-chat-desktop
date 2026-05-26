@@ -17,7 +17,7 @@ jobs:
         with:
           node-version: 20
       - run: npm install
-      - run: npx electron-builder --win
+      - run: npx electron-builder --win --publish never
       - name: Publish installer
         uses: softprops/action-gh-release@v2
         with:

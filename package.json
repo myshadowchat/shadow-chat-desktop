@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "private": true,
   "description": "Shadow Chat desktop app",
+  "author": "Shadow Chat",
   "main": "main.js",
   "scripts": {
     "start": "electron .",
