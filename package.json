@@ -1,0 +1,30 @@
+{
+  "name": "shadow-chat-desktop",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Shadow Chat desktop app",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "dist": "electron-builder --win"
+  },
+  "devDependencies": {
+    "electron": "^31.7.6",
+    "electron-builder": "^24.13.3"
+  },
+  "build": {
+    "appId": "live.myshadow.desktop",
+    "productName": "Shadow Chat",
+    "directories": { "output": "dist" },
+    "win": {
+      "target": "nsis",
+      "icon": "build/icon.png",
+      "artifactName": "Shadow-Chat-Setup.${ext}"
+    },
+    "nsis": {
+      "oneClick": true,
+      "perMachine": false,
+      "allowToChangeInstallationDirectory": false
+    }
+  }
+}
