@@ -2,6 +2,11 @@ const { app, BrowserWindow, session, shell } = require('electron');
 
 const APP_URL = 'https://myshadow.live';
 
+// Show "Shadow Chat" (not "Electron") as the app name and in Windows toast
+// notifications. The AUMID must match the installed NSIS shortcut (= appId).
+app.setName('Shadow Chat');
+if (process.platform === 'win32') app.setAppUserModelId('live.myshadow.desktop');
+
 function createWindow() {
   const win = new BrowserWindow({
     width: 1100,
