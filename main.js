@@ -1,4 +1,4 @@
-const { app, BrowserWindow, session, shell } = require('electron');
+const { app, BrowserWindow, session, shell, desktopCapturer } = require('electron');
 
 const APP_URL = 'https://myshadow.live';
 
@@ -30,6 +30,17 @@ function createWindow() {
 app.whenReady().then(() => {
   // Allow camera/mic/notifications so voice & video calls work in the desktop app.
   session.defaultSession.setPermissionRequestHandler((_wc, _perm, cb) => cb(true));
+  // Wire up screen sharing: without a display-media handler Electron rejects
+  // navigator.mediaDevices.getDisplayMedia() so the 🖥️ button silently fails.
+  // On Windows 10 build 17134+ / Windows 11 useSystemPicker shows the native
+  // picker. As a fallback we auto-pick the primary screen so it still works.
+  session.defaultSession.setDisplayMediaRequestHandler(async (_req, cb) => {
+    try {
+      const sources = await desktopCapturer.getSources({ types: ['screen', 'window'] });
+      const primary = sources.find((s) => s.id.startsWith('screen:')) || sources[0];
+      if (primary) cb({ video: primary, audio: 'loopback' }); else cb();
+    } catch { cb(); }
+  }, { useSystemPicker: true });
   createWindow();
   app.on('activate', () => { if (BrowserWindow.getAllWindows().length === 0) createWindow(); });
 });
